@@ -1,6 +1,20 @@
-// مفروض firebase متفعّل مسبقًا في مشروعك
+// 1. إعداد Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
+  authDomain: "salinow.firebaseapp.com",
+  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
+  projectId: "salinow",
+  storageBucket: "salinow.firebasestorage.app",
+  messagingSenderId: "199271794819",
+  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
+  measurementId: "G-23J4RKD3L9"
+};
 
-// المراجع لعناصر الأزرار والعدادات الشخصية
+// تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// 2. عناصر الصفحة
 const btns = {
   salatGlobal: document.getElementById('salatGlobalBtn'),
   hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
@@ -13,64 +27,56 @@ const countsPersonal = {
   istighfar: document.getElementById('istighfarPersonalCount'),
 };
 
-// جلب القيم الشخصية من localStorage أو تهيئتها بالصفر
+// 3. جلب البيانات الشخصية من localStorage أو تهيئتها
 let personal = {
   salat: parseInt(localStorage.getItem('salatPersonal')) || 0,
   hawqala: parseInt(localStorage.getItem('hawqalaPersonal')) || 0,
   istighfar: parseInt(localStorage.getItem('istighfarPersonal')) || 0,
 };
 
-// تحديث عرض الأعداد الشخصية
+// 4. تحديث العرض الشخصي
 function updatePersonalDisplays() {
   countsPersonal.salat.textContent = `عدد صلواتك أنت فقط: ${personal.salat}`;
   countsPersonal.hawqala.textContent = `عدد الحوقلة الخاصة بك: ${personal.hawqala}`;
   countsPersonal.istighfar.textContent = `عدد الاستغفار الخاص بك: ${personal.istighfar}`;
 }
 
-// تحديث عرض زر العدّاد العالمي (النص مع العدد والكلمة "عالمي" فقط مرة واحدة)
+// 5. تحديث نص زر العدّاد العالمي (عدد + كلمة "عالمي")
 function updateGlobalButton(button, count) {
   button.textContent = `${count} (عالمي)`;
 }
 
-// --- كود الربط مع Firebase ---
-
-// مثال: مراجع لقاعدة البيانات (غيرها حسب مشروعك)
-const database = firebase.database();
-
+// 6. مراجع Firebase لعدادات كل نوع
 const refs = {
   salat: database.ref('counts/salat'),
   hawqala: database.ref('counts/hawqala'),
   istighfar: database.ref('counts/istighfar'),
 };
 
-// تحديث الزر العالمي عند تغير البيانات في قاعدة Firebase
-refs.salat.on('value', snapshot => {
-  updateGlobalButton(btns.salatGlobal, snapshot.val() || 0);
+// 7. الاستماع لتحديث القيم من Firebase وتحديث الأزرار
+refs.salat.on('value', snap => {
+  updateGlobalButton(btns.salatGlobal, snap.val() || 0);
+});
+refs.hawqala.on('value', snap => {
+  updateGlobalButton(btns.hawqalaGlobal, snap.val() || 0);
+});
+refs.istighfar.on('value', snap => {
+  updateGlobalButton(btns.istighfarGlobal, snap.val() || 0);
 });
 
-refs.hawqala.on('value', snapshot => {
-  updateGlobalButton(btns.hawqalaGlobal, snapshot.val() || 0);
-});
-
-refs.istighfar.on('value', snapshot => {
-  updateGlobalButton(btns.istighfarGlobal, snapshot.val() || 0);
-});
-
-// عند الضغط على زر عالمي، زيادة القيمة في Firebase وعدادك الشخصي
+// 8. عند الضغط على زر عالمي: تحديث القاعدة والعداد الشخصي
 btns.salatGlobal.addEventListener('click', () => {
   refs.salat.transaction(current => (current || 0) + 1);
   personal.salat++;
   localStorage.setItem('salatPersonal', personal.salat);
   updatePersonalDisplays();
 });
-
 btns.hawqalaGlobal.addEventListener('click', () => {
   refs.hawqala.transaction(current => (current || 0) + 1);
   personal.hawqala++;
   localStorage.setItem('hawqalaPersonal', personal.hawqala);
   updatePersonalDisplays();
 });
-
 btns.istighfarGlobal.addEventListener('click', () => {
   refs.istighfar.transaction(current => (current || 0) + 1);
   personal.istighfar++;
@@ -78,7 +84,7 @@ btns.istighfarGlobal.addEventListener('click', () => {
   updatePersonalDisplays();
 });
 
-// دالة المشاركة
+// 9. دالة المشاركة
 function share() {
   const url = window.location.href;
   const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
@@ -90,5 +96,12 @@ function share() {
   }
 }
 
-// تحديث العرض عند بداية تحميل الصفحة
+// 10. دالة التواصل على الواتساب
+function contact() {
+  const phone = '01021069619';
+  const url = `https://wa.me/${phone}`;
+  window.open(url, '_blank');
+}
+
+// 11. تهيئة العرض عند تحميل الصفحة
 updatePersonalDisplays();
