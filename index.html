@@ -11,17 +11,28 @@
   <div class="container">
     <h1>صلِّ على النبي ﷺ</h1>
     <button id="salatBtn">اضغط هنا 👆</button>
-
-    <p id="counter">عدد الصلوات (عالمي): <span id="globalCount">0</span></p>
+    <p id="counter">عدد الصلوات (عالمي): <span id="count">0</span></p>
     <p id="userCounter">عدد صلواتك أنت فقط: <span id="userCount">0</span></p>
-
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
     <button class="share" onclick="share()">📤 شارك الأجر</button>
-  </div>
 
-  <!-- مكتبات Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <!-- قسم الأذكار الإضافي -->
+    <div class="extra-section">
+      <h2>اذكر ربك 🌿</h2>
+
+      <div class="zekr-box">
+        <p class="zekr-text">لا حول ولا قوة إلا بالله</p>
+        <button onclick="incrementCounter('hawqalaCount', 'hawqalaDisplay')">اضغط</button>
+        <p>عدد مرات الحوقلة: <span id="hawqalaDisplay">0</span></p>
+      </div>
+
+      <div class="zekr-box">
+        <p class="zekr-text">أستغفر الله</p>
+        <button onclick="incrementCounter('estighfarCount', 'estighfarDisplay')">اضغط</button>
+        <p>عدد مرات الاستغفار: <span id="estighfarDisplay">0</span></p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
