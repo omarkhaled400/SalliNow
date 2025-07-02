@@ -52,4 +52,85 @@ button {
   font-weight: 700;
   transition: background-color 0.3s ease, transform 0.2s ease;
   user-select: none;
-  margin
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+p#userCounter {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e4620;
+}
+
+blockquote {
+  background: #eafbee;
+  border-right: 6px solid #28a745;
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  color: #155724;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: inset 3px 3px 5px rgba(40, 167, 69, 0.1);
+}
+
+.share {
+  background-color: #0d6efd;
+}
+
+.share:hover {
+  background-color: #0b5ed7;
+}
+
+/* قسم الأذكار */
+.extra-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid #ccc;
+}
+
+.zekr-box {
+  background: #f0fff4;
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.zekr-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #155724;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  .share {
+    width: 100%;
+  }
+}
