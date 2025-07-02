@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>صلِّ على النبي ﷺ</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <title>تجربة كلمة عالمي</title>
+  <style>
+    #myElement {
+      font-size: 24px;
+      margin-top: 20px;
+      color: #333;
+    }
+    #button {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>صلِّ على النبي ﷺ</h1>
 
-    <div class="button-group">
-      <button id="salatGlobalBtn">0 (عالمي)</button>
-      <button id="salatPersonalBtn">0 (شخصي)</button>
-    </div>
+  <div id="button">عالمي</div>
+  <div id="myElement"></div>
 
-    <h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
-    <div class="button-group">
-      <button id="hawqalaGlobalBtn">0 (عالمي)</button>
-      <button id="hawqalaPersonalBtn">0 (شخصي)</button>
-    </div>
+  <script>
+    const element = document.getElementById("myElement");
+    const button = document.getElementById("button");
 
-    <h1>أستغفر الله العظيم</h1>
-    <div class="button-group">
-      <button id="estighfarGlobalBtn">0 (عالمي)</button>
-      <button id="estighfarPersonalBtn">0 (شخصي)</button>
-    </div>
+    button.addEventListener("click", () => {
+      // نعرض كلمة "عالمي" مرة واحدة فقط
+      element.innerHTML = "عالمي";
+    });
+  </script>
 
-    <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
