@@ -11,14 +11,18 @@
   <div class="container">
     <h1>صلِّ على النبي ﷺ</h1>
     <button id="salatBtn">اضغط هنا 👆</button>
-    <p id="counter">عدد الصلوات: <span id="count">0</span></p>
+
+    <p id="counter">عدد الصلوات (عالمي): <span id="globalCount">0</span></p>
+    <p id="userCounter">عدد صلواتك أنت فقط: <span id="userCount">0</span></p>
+
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
     <button class="share" onclick="share()">📤 شارك الأجر</button>
   </div>
 
-  <!-- إضافة مكتبات Firebase قبل سكريبت الموقع -->
+  <!-- مكتبات Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
   <script src="script.js"></script>
 </body>
 </html>
