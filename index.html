@@ -2,32 +2,33 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>تجربة كلمة عالمي</title>
+  <title>مثال كلمة عالمي</title>
   <style>
-    #myElement {
-      font-size: 24px;
-      margin-top: 20px;
-      color: #333;
-    }
-    #button {
+    #globalButton {
       cursor: pointer;
       color: blue;
       text-decoration: underline;
+      user-select: none;
+    }
+    #displayArea {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #333;
     }
   </style>
 </head>
 <body>
 
-  <div id="button">عالمي</div>
-  <div id="myElement"></div>
+  <div id="globalButton">عالمي</div>
+  <div id="displayArea"></div>
 
   <script>
-    const element = document.getElementById("myElement");
-    const button = document.getElementById("button");
+    const displayArea = document.getElementById("displayArea");
+    const globalButton = document.getElementById("globalButton");
 
-    button.addEventListener("click", () => {
-      // نعرض كلمة "عالمي" مرة واحدة فقط
-      element.innerHTML = "عالمي";
+    globalButton.addEventListener("click", () => {
+      // استبدل النص ولا تضيفه عشان تمنع التكرار
+      displayArea.innerHTML = "عالمي";
     });
   </script>
 
