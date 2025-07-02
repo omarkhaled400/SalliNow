@@ -43,6 +43,10 @@ button {
   box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
   transition: background-color 0.3s ease, transform 0.2s ease;
   min-width: 130px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 600;
 }
 
