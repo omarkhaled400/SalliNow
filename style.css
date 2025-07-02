@@ -30,25 +30,33 @@ h1 {
   color: #196619;
 }
 
-button#salatGlobalBtn {
+h2 {
+  margin-top: 2rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #2e7d32;
+}
+
+button {
   background-color: #4caf50;
   color: white;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   padding: 1rem 0;
   border: none;
   border-radius: 15px;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 0.5rem;
 }
 
-button#salatGlobalBtn:hover {
+button:hover {
   background-color: #388e3c;
 }
 
-#salatPersonalCount {
-  margin-top: 1rem;
-  font-size: 1.3rem;
+p {
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
   color: #2e7d32;
   word-break: break-word;
 }
