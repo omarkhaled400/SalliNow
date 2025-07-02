@@ -1,86 +1,96 @@
-// إعدادات Firebase
+// إعداد Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
-  authDomain: "salinow.firebaseapp.com",
-  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
-  projectId: "salinow",
-  storageBucket: "salinow.firebasestorage.app",
-  messagingSenderId: "199271794819",
-  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
-  measurementId: "G-23J4RKD3L9"
+  apiKey: "مفتاح-API-هنا",
+  authDomain: "مشروعك.firebaseapp.com",
+  databaseURL: "https://مشروعك-default-rtdb.firebaseio.com",
+  projectId: "مشروعك",
+  storageBucket: "مشروعك.appspot.com",
+  messagingSenderId: "رقم-مرسل",
+  appId: "معرف-تطبيق"
 };
-
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.database();
 
-// عناصر الواجهة
-const salatBtn = document.getElementById("salatBtn");
-const userSalatCount = document.getElementById("userSalatCount");
+// المراجع لكل عداد عالمي في Firebase
+const salatGlobalRef = db.ref('counts/salat');
+const hawqalaGlobalRef = db.ref('counts/hawqala');
+const estighfarGlobalRef = db.ref('counts/estighfar');
 
-const hawqalaBtn = document.getElementById("hawqalaBtn");
-const userHawqalaCount = document.getElementById("userHawqalaCount");
+// تحميل الأعداد الشخصية من localStorage
+let salatPersonal = parseInt(localStorage.getItem('salatPersonal')) || 0;
+let hawqalaPersonal = parseInt(localStorage.getItem('hawqalaPersonal')) || 0;
+let estighfarPersonal = parseInt(localStorage.getItem('estighfarPersonal')) || 0;
 
-const estighfarBtn = document.getElementById("estighfarBtn");
-const userEstighfarCount = document.getElementById("userEstighfarCount");
+// العناصر
+const salatGlobalBtn = document.getElementById('salatGlobalBtn');
+const salatPersonalBtn = document.getElementById('salatPersonalBtn');
 
-// جلب القيم من localStorage أو تعيين صفر
-let personalSalat = parseInt(localStorage.getItem("userSalat") || "0");
-let personalHawqala = parseInt(localStorage.getItem("userHawqala") || "0");
-let personalEstighfar = parseInt(localStorage.getItem("userEstighfar") || "0");
+const hawqalaGlobalBtn = document.getElementById('hawqalaGlobalBtn');
+const hawqalaPersonalBtn = document.getElementById('hawqalaPersonalBtn');
 
-userSalatCount.textContent = personalSalat;
-userHawqalaCount.textContent = personalHawqala;
-userEstighfarCount.textContent = personalEstighfar;
+const estighfarGlobalBtn = document.getElementById('estighfarGlobalBtn');
+const estighfarPersonalBtn = document.getElementById('estighfarPersonalBtn');
 
-// مراجع Firebase
-const salatRef = db.ref("globalSalatCount");
-const hawqalaRef = db.ref("globalHawqalaCount");
-const estighfarRef = db.ref("globalEstighfarCount");
-
-// تحديث الأزرار بالعداد العالمي لحظياً
-salatRef.on("value", snapshot => {
-  salatBtn.textContent = snapshot.val() || 0;
-});
-hawqalaRef.on("value", snapshot => {
-  hawqalaBtn.textContent = snapshot.val() || 0;
-});
-estighfarRef.on("value", snapshot => {
-  estighfarBtn.textContent = snapshot.val() || 0;
-});
-
-// دوال الزيادة عند الضغط مع تحديث العدادات الشخصية والعالمية
-salatBtn.addEventListener("click", () => {
-  personalSalat++;
-  localStorage.setItem("userSalat", personalSalat);
-  userSalatCount.textContent = personalSalat;
-
-  salatRef.transaction(current => (current || 0) + 1);
-});
-
-hawqalaBtn.addEventListener("click", () => {
-  personalHawqala++;
-  localStorage.setItem("userHawqala", personalHawqala);
-  userHawqalaCount.textContent = personalHawqala;
-
-  hawqalaRef.transaction(current => (current || 0) + 1);
-});
-
-estighfarBtn.addEventListener("click", () => {
-  personalEstighfar++;
-  localStorage.setItem("userEstighfar", personalEstighfar);
-  userEstighfarCount.textContent = personalEstighfar;
-
-  estighfarRef.transaction(current => (current || 0) + 1);
-});
-
-// مشاركة الموقع
-function share() {
-  const url = window.location.href;
-  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
-  if (navigator.share) {
-    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
-  } else {
-    navigator.clipboard.writeText(msg);
-    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
-  }
+// تحديث الأزرار بالعدد الحالي
+function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
+  globalBtn.textContent = `${globalCount} (عالمي)`;
+  personalBtn.textContent = `${personalCount} (شخصي)`;
 }
+
+// استماع لتحديثات القاعدة لكل عداد عالمي
+salatGlobalRef.on('value', snapshot => {
+  const val = snapshot.val() || 0;
+  updateButtons(salatGlobalBtn, salatPersonalBtn, val, salatPersonal);
+});
+
+hawqalaGlobalRef.on('value', snapshot => {
+  const val = snapshot.val() || 0;
+  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, val, hawqalaPersonal);
+});
+
+estighfarGlobalRef.on('value', snapshot => {
+  const val = snapshot.val() || 0;
+  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, val, estighfarPersonal);
+});
+
+// دوال زيادة العداد عند الضغط
+
+salatGlobalBtn.addEventListener('click', () => {
+  salatGlobalRef.transaction(current => (current || 0) + 1);
+  salatPersonal++;
+  localStorage.setItem('salatPersonal', salatPersonal);
+  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
+});
+
+salatPersonalBtn.addEventListener('click', () => {
+  salatPersonal++;
+  localStorage.setItem('salatPersonal', salatPersonal);
+  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
+});
+
+hawqalaGlobalBtn.addEventListener('click', () => {
+  hawqalaGlobalRef.transaction(current => (current || 0) + 1);
+  hawqalaPersonal++;
+  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
+  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
+});
+
+hawqalaPersonalBtn.addEventListener('click', () => {
+  hawqalaPersonal++;
+  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
+  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
+});
+
+estighfarGlobalBtn.addEventListener('click', () => {
+  estighfarGlobalRef.transaction(current => (current || 0) + 1);
+  estighfarPersonal++;
+  localStorage.setItem('estighfarPersonal', estighfarPersonal);
+  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
+});
+
+estighfarPersonalBtn.addEventListener('click', () => {
+  estighfarPersonal++;
+  localStorage.setItem('estighfarPersonal', estighfarPersonal);
+  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
+});
