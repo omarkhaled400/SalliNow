@@ -1,93 +1,78 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>الذكر و الصلاة</title>
-<style>
-  body {
-    font-family: 'Tajawal', sans-serif;
-    direction: rtl;
-    text-align: center;
-    margin: 2rem;
-    background: #f8f9fa;
-  }
-  h1 {
-    color: #157347;
-  }
-  button {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    background-color: #ffc107;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 1rem 0 0.2rem 0;
-    width: 80%;
-    max-width: 300px;
-  }
-  p {
-    font-size: 1.3rem;
-    margin: 0 0 1rem 0;
-    color: #444;
-  }
-  blockquote {
-    background: #eafbee;
-    border-right: 5px solid #28a745;
-    padding: 1rem;
-    border-radius: 10px;
-    font-style: italic;
-    color: #155724;
-    max-width: 500px;
-    margin: 2rem auto 0 auto;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <title>صلِّ على النبي ﷺ</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      direction: rtl;
+      text-align: center;
+      margin: 2rem;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #157347;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 2rem;
+      background-color: #ffc107;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 150px;
+    }
+    p {
+      font-size: 1.3rem;
+      margin: 1rem 0 2rem 0;
+      color: #444;
+    }
+    blockquote {
+      background: #eafbee;
+      border-right: 5px solid #28a745;
+      padding: 1rem;
+      border-radius: 10px;
+      font-style: italic;
+      color: #155724;
+      max-width: 500px;
+      margin: 2rem auto 0 auto;
+    }
+  </style>
 </head>
 <body>
 
-<h1>صلِّ على النبي ﷺ</h1>
-<button id="salatBtn">اضغط هنا</button>
-<p>عدد صلواتك أنت فقط: <span id="salatCount">0</span></p>
+  <h1>صلِّ على النبي ﷺ</h1>
 
-<h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
-<button id="hawqalaBtn">اضغط هنا</button>
-<p>عدد مرات قولك الحوقلة: <span id="hawqalaCount">0</span></p>
+  <button id="globalCountBtn">0</button>
 
-<h1>أستغفر الله العظيم</h1>
-<button id="estighfarBtn">اضغط هنا</button>
-<p>عدد مرات قولك الاستغفار: <span id="estighfarCount">0</span></p>
+  <p>عدد صلواتك أنت فقط: <span id="personalCount">0</span></p>
 
-<blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
+  <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
 
-<script>
-  // تحميل القيم من localStorage أو صفر
-  let salatCount = parseInt(localStorage.getItem('salatCount')) || 0;
-  let hawqalaCount = parseInt(localStorage.getItem('hawqalaCount')) || 0;
-  let estighfarCount = parseInt(localStorage.getItem('estighfarCount')) || 0;
+  <script>
+    // جلب العدادات من localStorage
+    let personalCount = parseInt(localStorage.getItem('personalCount')) || 0;
+    let globalCount = parseInt(localStorage.getItem('globalCount')) || 0;
 
-  // تحديث العرض
-  document.getElementById('salatCount').textContent = salatCount;
-  document.getElementById('hawqalaCount').textContent = hawqalaCount;
-  document.getElementById('estighfarCount').textContent = estighfarCount;
+    const personalCountSpan = document.getElementById('personalCount');
+    const globalCountBtn = document.getElementById('globalCountBtn');
 
-  // أزرار الزيادة
-  document.getElementById('salatBtn').addEventListener('click', () => {
-    salatCount++;
-    localStorage.setItem('salatCount', salatCount);
-    document.getElementById('salatCount').textContent = salatCount;
-  });
+    personalCountSpan.textContent = personalCount;
+    globalCountBtn.textContent = globalCount;
 
-  document.getElementById('hawqalaBtn').addEventListener('click', () => {
-    hawqalaCount++;
-    localStorage.setItem('hawqalaCount', hawqalaCount);
-    document.getElementById('hawqalaCount').textContent = hawqalaCount;
-  });
+    globalCountBtn.addEventListener('click', () => {
+      globalCount++;
+      personalCount++;
+      // حفظ في localStorage (لو عايز تخزين عالمي من غير Firebase مش هيشتغل)
+      localStorage.setItem('globalCount', globalCount);
+      localStorage.setItem('personalCount', personalCount);
 
-  document.getElementById('estighfarBtn').addEventListener('click', () => {
-    estighfarCount++;
-    localStorage.setItem('estighfarCount', estighfarCount);
-    document.getElementById('estighfarCount').textContent = estighfarCount;
-  });
-</script>
+      globalCountBtn.textContent = globalCount;
+      personalCountSpan.textContent = personalCount;
+    });
+  </script>
 
 </body>
 </html>
