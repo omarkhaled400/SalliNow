@@ -1,4 +1,4 @@
-// إعداد Firebase
+// تكوين Firebase الخاص بك
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,43 +10,46 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
+// تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-// مراجع لكل نوع عداد في الـ Firebase
-const dbRefSalat = firebase.database().ref('counts/salat');
-const dbRefHawqala = firebase.database().ref('counts/hawqala');
-const dbRefIstighfar = firebase.database().ref('counts/istighfar');
+// مراجع عدادات Firebase لكل نوع ذكر
+const dbRefSalat = db.ref('counts/salat');
+const dbRefHawqala = db.ref('counts/hawqala');
+const dbRefIstighfar = db.ref('counts/istighfar');
 
-// عناصر الصفحة
+// جلب عناصر HTML
 const btnSalatGlobal = document.getElementById('salatGlobalBtn');
-const personalSalatCountElem = document.getElementById('salatPersonalCount');
+const salatPersonalCountEl = document.getElementById('salatPersonalCount');
 
 const btnHawqalaGlobal = document.getElementById('hawqalaGlobalBtn');
-const personalHawqalaCountElem = document.getElementById('hawqalaPersonalCount');
+const hawqalaPersonalCountEl = document.getElementById('hawqalaPersonalCount');
 
 const btnIstighfarGlobal = document.getElementById('istighfarGlobalBtn');
-const personalIstighfarCountElem = document.getElementById('istighfarPersonalCount');
+const istighfarPersonalCountEl = document.getElementById('istighfarPersonalCount');
 
 const shareBtn = document.getElementById('shareBtn');
 const contactBtn = document.getElementById('contactBtn');
 
-// عدادات شخصية مخزنة في localStorage لكل نوع
+// جلب العدادات الشخصية من localStorage أو تعيين صفر
 let personalSalatCount = parseInt(localStorage.getItem('salatPersonal')) || 0;
 let personalHawqalaCount = parseInt(localStorage.getItem('hawqalaPersonal')) || 0;
 let personalIstighfarCount = parseInt(localStorage.getItem('istighfarPersonal')) || 0;
 
-// تحديث العرض لكل نوع
+// تحديث عرض العدادات الشخصية
 function updatePersonalCounts() {
-  personalSalatCountElem.textContent = `عدد صلواتك أنت فقط: ${personalSalatCount}`;
-  personalHawqalaCountElem.textContent = `عدد حوقلتك أنت فقط: ${personalHawqalaCount}`;
-  personalIstighfarCountElem.textContent = `عدد استغفاراتك أنت فقط: ${personalIstighfarCount}`;
+  salatPersonalCountEl.textContent = `عدد صلواتك أنت فقط: ${personalSalatCount}`;
+  hawqalaPersonalCountEl.textContent = `عدد حوقلتك أنت فقط: ${personalHawqalaCount}`;
+  istighfarPersonalCountEl.textContent = `عدد استغفاراتك أنت فقط: ${personalIstighfarCount}`;
 }
 
+// تحديث النص على أزرار العداد العالمي
 function updateGlobalButton(btn, count) {
   btn.textContent = `${count} (عالمي)`;
 }
 
-// تفعيل الاستماع لتغييرات البيانات العالمية
+// الاستماع لتحديثات قاعدة البيانات العالمية
 dbRefSalat.on('value', snapshot => {
   const count = snapshot.val() || 0;
   updateGlobalButton(btnSalatGlobal, count);
@@ -60,7 +63,7 @@ dbRefIstighfar.on('value', snapshot => {
   updateGlobalButton(btnIstighfarGlobal, count);
 });
 
-// عند الضغط على أزرار العداد العالمي
+// عند الضغط على زر العداد العالمي للصلاة على النبي
 btnSalatGlobal.addEventListener('click', () => {
   dbRefSalat.transaction(current => (current || 0) + 1)
     .then(() => {
@@ -70,6 +73,8 @@ btnSalatGlobal.addEventListener('click', () => {
     })
     .catch(err => console.error('خطأ في تحديث عداد الصلاة:', err));
 });
+
+// عند الضغط على زر العداد العالمي للحوقلة
 btnHawqalaGlobal.addEventListener('click', () => {
   dbRefHawqala.transaction(current => (current || 0) + 1)
     .then(() => {
@@ -79,6 +84,8 @@ btnHawqalaGlobal.addEventListener('click', () => {
     })
     .catch(err => console.error('خطأ في تحديث عداد الحوقلة:', err));
 });
+
+// عند الضغط على زر العداد العالمي للاستغفار
 btnIstighfarGlobal.addEventListener('click', () => {
   dbRefIstighfar.transaction(current => (current || 0) + 1)
     .then(() => {
@@ -89,7 +96,7 @@ btnIstighfarGlobal.addEventListener('click', () => {
     .catch(err => console.error('خطأ في تحديث عداد الاستغفار:', err));
 });
 
-// تحديث عرض العدادات الشخصية أول مرة
+// تحديث العدادات الشخصية في أول تحميل
 updatePersonalCounts();
 
 // زر المشاركة
@@ -104,9 +111,9 @@ shareBtn.addEventListener('click', () => {
   }
 });
 
-// زر التواصل (واتساب)
+// زر التواصل واتساب
 contactBtn.addEventListener('click', () => {
-  const phone = '201021069619'; // كود مصر بدون 0
+  const phone = '201021069619'; // كود مصر بدون صفر
   const url = `https://wa.me/${phone}`;
   window.open(url, '_blank');
 });
