@@ -30,6 +30,7 @@ h1 {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap; /* تسمح للأزرار بالالتفاف على الشاشات الصغيرة */
 }
 
 button {
@@ -44,9 +45,8 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
   min-width: 130px;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;  /* يسمح بتقسيم النص على أسطر */
+  overflow-wrap: break-word; /* يكسر الكلمات الطويلة لو لازم */
   font-weight: 600;
 }
 
