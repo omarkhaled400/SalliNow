@@ -1,4 +1,4 @@
-// Firebase config
+// تهيئة Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,22 +10,23 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 const dbRef = firebase.database().ref('counts/salat');
 
 const btnGlobal = document.getElementById('salatGlobalBtn');
 const personalCountElem = document.getElementById('salatPersonalCount');
+const shareBtn = document.getElementById('shareBtn');
+const contactBtn = document.getElementById('contactBtn');
 
 let personalCount = parseInt(localStorage.getItem('salatPersonal')) || 0;
 
-// تحديث العداد الشخصي بالصفحة
+// تحديث عرض العداد الشخصي
 function updatePersonalCount() {
   personalCountElem.textContent = `عدد صلواتك أنت فقط: ${personalCount}`;
 }
 
-// تحديث زر العداد العالمي بالنص الصحيح
+// تحديث زر العداد العالمي مع النص الصحيح
 function updateGlobalButton(count) {
   btnGlobal.textContent = `${count} (عالمي)`;
 }
@@ -50,15 +51,8 @@ btnGlobal.addEventListener('click', () => {
 // تحديث العداد الشخصي عند تحميل الصفحة
 updatePersonalCount();
 
-// وظيفة زر التواصل عبر واتساب
-function contactWhatsApp() {
-  const phone = '201021069619'; // كود مصر 20 + رقمك بدون صفر البداية
-  const url = `https://wa.me/${phone}`;
-  window.open(url, '_blank');
-}
-
-// وظيفة المشاركة (يمكن تعديلها حسب الحاجة)
-function share() {
+// وظيفة زر المشاركة
+shareBtn.addEventListener('click', () => {
   const url = window.location.href;
   const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
   if (navigator.share) {
@@ -67,4 +61,11 @@ function share() {
     navigator.clipboard.writeText(msg);
     alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
   }
-}
+});
+
+// وظيفة زر التواصل عبر واتساب
+contactBtn.addEventListener('click', () => {
+  const phone = '201021069619'; // كود مصر 20 + رقمك بدون صفر البداية
+  const url = `https://wa.me/${phone}`;
+  window.open(url, '_blank');
+});
