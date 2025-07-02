@@ -33,11 +33,16 @@ const hawqalaPersonalBtn = document.getElementById('hawqalaPersonalBtn');
 const estighfarGlobalBtn = document.getElementById('estighfarGlobalBtn');
 const estighfarPersonalBtn = document.getElementById('estighfarPersonalBtn');
 
-// تحديث نصوص الأزرار
+// تحديث نصوص الأزرار عند بداية التحميل
 function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
   globalBtn.textContent = `${globalCount} (عالمي)`;
   personalBtn.textContent = `${personalCount} (شخصي)`;
 }
+
+// حدث النصوص عند تحميل الصفحة
+updateButtons(salatGlobalBtn, salatPersonalBtn, 0, salatPersonal);
+updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, 0, hawqalaPersonal);
+updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, 0, estighfarPersonal);
 
 // الاستماع لتحديثات العدادات العالمية من Firebase
 salatGlobalRef.on('value', snapshot => {
