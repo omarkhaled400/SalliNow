@@ -9,11 +9,12 @@ body {
 }
 
 .container {
-  max-width: 520px;
+  max-width: 95vw; /* تعديل هنا */
   margin: 0 auto;
   background: #ffffff;
   border-radius: 20px;
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1rem; /* تعديل هنا */
+  box-sizing: border-box; /* إضافة مهمة */
   box-shadow: 0 12px 24px rgba(27, 58, 45, 0.15);
 }
 
@@ -21,8 +22,9 @@ h1 {
   color: #2d6a4f;
   margin-bottom: 1rem;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* تعديل هنا */
   letter-spacing: 0.03em;
+  word-break: break-word; /* إضافة مهمة */
 }
 
 .button-group {
@@ -30,7 +32,7 @@ h1 {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap; /* تسمح للأزرار بالالتفاف على الشاشات الصغيرة */
+  flex-wrap: wrap;
 }
 
 button {
@@ -38,15 +40,15 @@ button {
   border: none;
   border-radius: 14px;
   padding: 1rem 1.8rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem; /* تعديل هنا */
   color: white;
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
   transition: background-color 0.3s ease, transform 0.2s ease;
   min-width: 130px;
   text-align: center;
-  white-space: normal;  /* يسمح بتقسيم النص على أسطر */
-  overflow-wrap: break-word; /* يكسر الكلمات الطويلة لو لازم */
+  white-space: normal;
+  overflow-wrap: break-word;
   font-weight: 600;
 }
 
