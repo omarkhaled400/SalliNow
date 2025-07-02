@@ -5,37 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>صلِّ على النبي ﷺ</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
     <h1>صلِّ على النبي ﷺ</h1>
-    <div class="button-group">
-      <button id="salatGlobalBtn">0 (عالمي)</button>
-      <button id="salatPersonalBtn">0 (شخصي)</button>
-    </div>
 
-    <h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
-    <div class="button-group">
-      <button id="hawqalaGlobalBtn">0 (عالمي)</button>
-      <button id="hawqalaPersonalBtn">0 (شخصي)</button>
-    </div>
+    <button id="salatGlobalBtn">0 (عالمي)</button>
 
-    <h1>أستغفر الله العظيم</h1>
-    <div class="button-group">
-      <button id="estighfarGlobalBtn">0 (عالمي)</button>
-      <button id="estighfarPersonalBtn">0 (شخصي)</button>
-    </div>
+    <p id="salatPersonalCount">عدد صلواتك أنت فقط: 0</p>
 
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
 
-    <a href="https://wa.me/201021069619" target="_blank" class="contact-btn" rel="noopener noreferrer">
-      تواصل مع صانع الموقع
-    </a>
+    <button class="share" onclick="share()">📤 شارك الأجر</button>
   </div>
 
+  <button class="contact-btn" onclick="contactWhatsApp()">تواصل مع صانع الموقع</button>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
