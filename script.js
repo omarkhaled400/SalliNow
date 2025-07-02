@@ -1,19 +1,22 @@
-// عداد الصلاة العالمي (من Firebase مثلاً)
+// عداد الصلاة
 let globalCount = localStorage.getItem("salatCount") || 0;
 let userCount = localStorage.getItem("userSalat") || 0;
-document.getElementById("count").textContent = globalCount;
-document.getElementById("userCount").textContent = userCount;
+const salatBtn = document.getElementById("salatBtn");
+const userCounter = document.getElementById("userCount");
 
-document.getElementById("salatBtn").addEventListener("click", () => {
+salatBtn.textContent = globalCount;
+userCounter.textContent = userCount;
+
+salatBtn.addEventListener("click", () => {
   globalCount++;
   userCount++;
   localStorage.setItem("salatCount", globalCount);
   localStorage.setItem("userSalat", userCount);
-  document.getElementById("count").textContent = globalCount;
-  document.getElementById("userCount").textContent = userCount;
+  salatBtn.textContent = globalCount;
+  userCounter.textContent = userCount;
 });
 
-// زر المشاركة
+// مشاركة
 function share() {
   const url = window.location.href;
   const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
@@ -25,16 +28,28 @@ function share() {
   }
 }
 
-// عدادات الحوقلة والاستغفار
-document.getElementById("hawqalaDisplay").textContent =
-  localStorage.getItem("hawqalaCount") || 0;
-
-document.getElementById("estighfarDisplay").textContent =
-  localStorage.getItem("estighfarCount") || 0;
-
-function incrementCounter(key, displayId) {
-  let current = parseInt(localStorage.getItem(key) || "0");
-  current++;
-  localStorage.setItem(key, current);
-  document.getElementById(displayId).textContent = current;
+// الحوقلة والاستغفار
+function initZekr(keyDisplay, keyUser, displayId, userId) {
+  const global = localStorage.getItem(keyDisplay) || 0;
+  const user = localStorage.getItem(keyUser) || 0;
+  document.getElementById(displayId).textContent = global;
+  document.getElementById(userId).textContent = user;
 }
+
+function incrementCounter(keyDisplay, displayId) {
+  let global = parseInt(localStorage.getItem(keyDisplay) || "0");
+  global++;
+  localStorage.setItem(keyDisplay, global);
+  document.getElementById(displayId).textContent = global;
+
+  // عداد شخصي
+  let userKey = keyDisplay + "_user";
+  let user = parseInt(localStorage.getItem(userKey) || "0");
+  user++;
+  localStorage.setItem(userKey, user);
+  document.getElementById(userKey.replace("Count", "User")).textContent = user;
+}
+
+// البداية
+initZekr("hawqalaCount", "hawqalaCount_user", "hawqalaDisplay", "hawqalaUser");
+initZekr("estighfarCount", "estighfarCount_user", "estighfarDisplay", "estighfarUser");
