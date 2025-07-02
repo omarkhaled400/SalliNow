@@ -12,73 +12,81 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-const salatGlobalRef = db.ref('counts/salat');
-const hawqalaGlobalRef = db.ref('counts/hawqala');
-const estighfarGlobalRef = db.ref('counts/estighfar');
+const refs = {
+  salat: db.ref('counts/salat'),
+  hawqala: db.ref('counts/hawqala'),
+  estighfar: db.ref('counts/estighfar')
+};
 
-let salatPersonal = parseInt(localStorage.getItem('salatPersonal')) || 0;
-let hawqalaPersonal = parseInt(localStorage.getItem('hawqalaPersonal')) || 0;
-let estighfarPersonal = parseInt(localStorage.getItem('estighfarPersonal')) || 0;
+let personal = {
+  salat: parseInt(localStorage.getItem('salatPersonal')) || 0,
+  hawqala: parseInt(localStorage.getItem('hawqalaPersonal')) || 0,
+  estighfar: parseInt(localStorage.getItem('estighfarPersonal')) || 0
+};
 
-const salatGlobalBtn = document.getElementById('salatGlobalBtn');
-const salatPersonalBtn = document.getElementById('salatPersonalBtn');
-const hawqalaGlobalBtn = document.getElementById('hawqalaGlobalBtn');
-const hawqalaPersonalBtn = document.getElementById('hawqalaPersonalBtn');
-const estighfarGlobalBtn = document.getElementById('estighfarGlobalBtn');
-const estighfarPersonalBtn = document.getElementById('estighfarPersonalBtn');
+const btns = {
+  salatGlobal: document.getElementById('salatGlobalBtn'),
+  salatPersonal: document.getElementById('salatPersonalBtn'),
+  hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
+  hawqalaPersonal: document.getElementById('hawqalaPersonalBtn'),
+  estighfarGlobal: document.getElementById('estighfarGlobalBtn'),
+  estighfarPersonal: document.getElementById('estighfarPersonalBtn')
+};
 
 function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
   globalBtn.textContent = `${globalCount} (عالمي)`;
   personalBtn.textContent = `${personalCount} (شخصي)`;
 }
 
-updateButtons(salatGlobalBtn, salatPersonalBtn, 0, salatPersonal);
-updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, 0, hawqalaPersonal);
-updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, 0, estighfarPersonal);
+// عرض القيم الأولية
+updateButtons(btns.salatGlobal, btns.salatPersonal, 0, personal.salat);
+updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, 0, personal.hawqala);
+updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, 0, personal.estighfar);
 
-salatGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(salatGlobalBtn, salatPersonalBtn, val, salatPersonal);
+// الاستماع لتحديثات العدادات العالمية من Firebase
+refs.salat.on('value', snap => {
+  updateButtons(btns.salatGlobal, btns.salatPersonal, snap.val() || 0, personal.salat);
 });
-hawqalaGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, val, hawqalaPersonal);
+refs.hawqala.on('value', snap => {
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, snap.val() || 0, personal.hawqala);
 });
-estighfarGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, val, estighfarPersonal);
+refs.estighfar.on('value', snap => {
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, snap.val() || 0, personal.estighfar);
 });
 
-salatGlobalBtn.addEventListener('click', () => {
-  salatGlobalRef.transaction(current => (current || 0) + 1);
-  salatPersonal++;
-  localStorage.setItem('salatPersonal', salatPersonal);
-  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
+// التعامل مع ضغطات الأزرار وتحديث القيم
+btns.salatGlobal.addEventListener('click', () => {
+  refs.salat.transaction(current => (current || 0) + 1);
+  personal.salat++;
+  localStorage.setItem('salatPersonal', personal.salat);
+  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
 });
-salatPersonalBtn.addEventListener('click', () => {
-  salatPersonal++;
-  localStorage.setItem('salatPersonal', salatPersonal);
-  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
+btns.salatPersonal.addEventListener('click', () => {
+  personal.salat++;
+  localStorage.setItem('salatPersonal', personal.salat);
+  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
 });
-hawqalaGlobalBtn.addEventListener('click', () => {
-  hawqalaGlobalRef.transaction(current => (current || 0) + 1);
-  hawqalaPersonal++;
-  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
+
+btns.hawqalaGlobal.addEventListener('click', () => {
+  refs.hawqala.transaction(current => (current || 0) + 1);
+  personal.hawqala++;
+  localStorage.setItem('hawqalaPersonal', personal.hawqala);
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
 });
-hawqalaPersonalBtn.addEventListener('click', () => {
-  hawqalaPersonal++;
-  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
+btns.hawqalaPersonal.addEventListener('click', () => {
+  personal.hawqala++;
+  localStorage.setItem('hawqalaPersonal', personal.hawqala);
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
 });
-estighfarGlobalBtn.addEventListener('click', () => {
-  estighfarGlobalRef.transaction(current => (current || 0) + 1);
-  estighfarPersonal++;
-  localStorage.setItem('estighfarPersonal', estighfarPersonal);
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
+
+btns.estighfarGlobal.addEventListener('click', () => {
+  refs.estighfar.transaction(current => (current || 0) + 1);
+  personal.estighfar++;
+  localStorage.setItem('estighfarPersonal', personal.estighfar);
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
 });
-estighfarPersonalBtn.addEventListener('click', () => {
-  estighfarPersonal++;
-  localStorage.setItem('estighfarPersonal', estighfarPersonal);
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
+btns.estighfarPersonal.addEventListener('click', () => {
+  personal.estighfar++;
+  localStorage.setItem('estighfarPersonal', personal.estighfar);
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
 });
