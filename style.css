@@ -50,6 +50,7 @@ button#salatGlobalBtn:hover {
   margin-top: 1rem;
   font-size: 1.3rem;
   color: #2e7d32;
+  word-break: break-word;
 }
 
 blockquote {
