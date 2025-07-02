@@ -1,76 +1,48 @@
+/* تنسيق عام للصفحة */
 body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
   margin: 0;
-  padding: 2rem;
-  font-family: 'Tajawal', sans-serif;
-  background: #e9f5ee;
+  padding: 20px;
   direction: rtl;
-  text-align: center;
-  color: #1b3a2d;
 }
 
-.container {
-  max-width: 95vw; /* تعديل هنا */
+main {
+  max-width: 600px;
   margin: 0 auto;
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 1.5rem 1rem; /* تعديل هنا */
-  box-sizing: border-box; /* إضافة مهمة */
-  box-shadow: 0 12px 24px rgba(27, 58, 45, 0.15);
+  text-align: center;
 }
 
 h1 {
-  color: #2d6a4f;
-  margin-bottom: 1rem;
+  margin-bottom: 30px;
   font-weight: 700;
-  font-size: 1.5rem; /* تعديل هنا */
-  letter-spacing: 0.03em;
-  word-break: break-word; /* إضافة مهمة */
+  color: #333;
 }
 
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-button {
-  background-color: #52b788;
+/* زرار كلمة "عالمي" */
+#globalButton {
+  background-color: transparent;
   border: none;
-  border-radius: 14px;
-  padding: 1rem 1.8rem;
-  font-size: 1.4rem; /* تعديل هنا */
-  color: white;
+  color: #1a73e8;
+  font-size: 28px;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 130px;
-  text-align: center;
-  white-space: normal;
-  overflow-wrap: break-word;
+  text-decoration: underline;
+  padding: 10px 20px;
+  transition: color 0.3s ease;
+}
+
+#globalButton:hover,
+#globalButton:focus {
+  color: #0046b8;
+  outline: none;
+}
+
+/* المكان اللي هتظهر فيه كلمة "عالمي" */
+#displayArea {
+  margin-top: 40px;
+  font-size: 36px;
+  color: #0a0a0a;
+  min-height: 50px;
   font-weight: 600;
-}
-
-button:hover {
-  background-color: #40916c;
-  transform: translateY(-3px);
-}
-
-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 8px rgba(82, 183, 136, 0.7);
-}
-
-blockquote {
-  background: #d8f3dc;
-  border-right: 6px solid #2d6a4f;
-  color: #14532d;
-  font-style: italic;
-  border-radius: 12px;
-  padding: 1.3rem 1.5rem;
-  max-width: 520px;
-  margin: 2rem auto 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
 }
