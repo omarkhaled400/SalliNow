@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تجربة كلمة عالمي</title>
+  <title>صلِّ على النبي ﷺ</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
+  <div class="container">
+    <h1>صلِّ على النبي ﷺ</h1>
 
-  <main>
-    <h1>مثال كلمة عالمي</h1>
+    <div class="button-group">
+      <button id="salatGlobalBtn">0 (عالمي)</button>
+      <button id="salatPersonalBtn">0 (شخصي)</button>
+    </div>
 
-    <button id="globalButton" aria-label="زر كلمة عالمي">عالمي</button>
+    <h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
+    <div class="button-group">
+      <button id="hawqalaGlobalBtn">0 (عالمي)</button>
+      <button id="hawqalaPersonalBtn">0 (شخصي)</button>
+    </div>
 
-    <section id="displayArea" aria-live="polite" role="region"></section>
-  </main>
+    <h1>أستغفر الله العظيم</h1>
+    <div class="button-group">
+      <button id="estighfarGlobalBtn">0 (عالمي)</button>
+      <button id="estighfarPersonalBtn">0 (شخصي)</button>
+    </div>
+
+    <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
+  </div>
 
   <script src="script.js"></script>
 </body>
