@@ -1,4 +1,4 @@
-// بيانات Firebase بتاعتك
+// بيانات Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,42 +10,35 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
-// تحميل Firebase (نسخة compat عشان تشتغل على HTML عادي)
-import('https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js').then(() => {
-  import('https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js').then(() => {
+// تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const countRef = db.ref("globalCount");
 
-    // تهيئة Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const countRef = db.ref("globalCount");
+const btn = document.getElementById("salatBtn");
+const countEl = document.getElementById("count");
 
-    const btn = document.getElementById("salatBtn");
-    const countEl = document.getElementById("count");
+// تحديث العداد أول ما الصفحة تفتح
+countRef.on("value", (snapshot) => {
+  const count = snapshot.val() || 0;
+  countEl.textContent = count;
+});
 
-    // عرض العدد أول ما الصفحة تفتح
-    countRef.on("value", (snapshot) => {
-      const count = snapshot.val() || 0;
-      countEl.textContent = count;
-    });
-
-    // لما المستخدم يضغط الزر
-    btn.addEventListener("click", () => {
-      countRef.transaction((current) => {
-        return (current || 0) + 1;
-      });
-    });
-
-    // زر المشاركة
-    window.share = function () {
-      const url = window.location.href;
-      const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
-      if (navigator.share) {
-        navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
-      } else {
-        navigator.clipboard.writeText(msg);
-        alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
-      }
-    };
-
+// لما تضغط على زر الصلاة
+btn.addEventListener("click", () => {
+  countRef.transaction((current) => {
+    return (current || 0) + 1;
   });
 });
+
+// زر المشاركة
+function share() {
+  const url = window.location.href;
+  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
+  if (navigator.share) {
+    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
+  } else {
+    navigator.clipboard.writeText(msg);
+    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
+  }
+}
