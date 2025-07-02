@@ -1,85 +1,99 @@
 body {
   margin: 0;
-  padding: 2rem;
+  padding: 0;
   font-family: 'Tajawal', sans-serif;
-  background: #e9f5ee;
+  background: #e9f5ec;
   direction: rtl;
-  text-align: center;
-  color: #1b3a2d;
-}
-.container {
-  max-width: 450px;
-  margin: auto;
-  background: #fff;
-  border-radius: 20px;
-  padding: 1.5rem 1rem;
-  box-sizing: border-box;
-  box-shadow: 0 12px 24px rgba(27, 58, 45, 0.15);
-}
-h1 {
-  color: #2d6a4f;
-  margin-bottom: 0.8rem;
-  font-weight: 700;
-  font-size: 1.6rem;
-  letter-spacing: 0.03em;
-  word-break: break-word;
-}
-.button-group {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+  color: #145214;
 }
-button {
-  background-color: #52b788;
-  border: none;
-  border-radius: 14px;
-  padding: 1rem 1.8rem;
-  font-size: 1.3rem;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 130px;
+
+.container {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(20, 82, 20, 0.15);
+  max-width: 400px;
+  width: 90%;
   text-align: center;
-  white-space: normal;
-  overflow-wrap: break-word;
-  font-weight: 600;
+  margin-bottom: 2rem;
 }
-button:hover {
-  background-color: #40916c;
-  transform: translateY(-3px);
+
+h1 {
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #196619;
 }
-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 8px rgba(82, 183, 136, 0.7);
+
+button#salatGlobalBtn {
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.6rem;
+  padding: 1rem 0;
+  border: none;
+  border-radius: 15px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-blockquote {
-  background: #d8f3dc;
-  border-right: 6px solid #2d6a4f;
-  color: #14532d;
-  font-style: italic;
-  border-radius: 12px;
-  padding: 1.3rem 1.5rem;
-  max-width: 520px;
-  margin: 2rem auto 1.5rem auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
+
+button#salatGlobalBtn:hover {
+  background-color: #388e3c;
 }
-.contact-btn {
-  background-color: #2d6a4f;
+
+#salatPersonalCount {
   margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  color: #2e7d32;
+}
+
+blockquote {
+  background: #d6efd6;
+  border-right: 6px solid #4caf50;
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(27, 58, 45, 0.7);
-  display: inline-block;
-  text-decoration: none;
+  color: #2e7d32;
+  font-style: italic;
+}
+
+button.share {
+  margin-top: 1.5rem;
+  background-color: #2e7d32;
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.share:hover {
+  background-color: #145214;
+}
+
+.contact-btn {
+  background-color: #196619;
   color: white;
   font-weight: 700;
-  transition: background-color 0.3s ease;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(25, 102, 25, 0.4);
+  transition: background-color 0.3s;
 }
+
 .contact-btn:hover {
-  background-color: #1b3a2d;
+  background-color: #145214;
 }
