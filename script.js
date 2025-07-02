@@ -36,18 +36,17 @@ function initZekr(keyDisplay, keyUser, displayId, userId) {
   document.getElementById(userId).textContent = user;
 }
 
-function incrementCounter(keyDisplay, displayId) {
+function incrementCounter(keyDisplay, displayId, userId) {
   let global = parseInt(localStorage.getItem(keyDisplay) || "0");
   global++;
   localStorage.setItem(keyDisplay, global);
   document.getElementById(displayId).textContent = global;
 
   // عداد شخصي
-  let userKey = keyDisplay + "_user";
-  let user = parseInt(localStorage.getItem(userKey) || "0");
+  let user = parseInt(localStorage.getItem(keyDisplay + "_user") || "0");
   user++;
-  localStorage.setItem(userKey, user);
-  document.getElementById(userKey.replace("Count", "User")).textContent = user;
+  localStorage.setItem(keyDisplay + "_user", user);
+  document.getElementById(userId).textContent = user;
 }
 
 // البداية
