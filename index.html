@@ -10,26 +10,35 @@
 <body>
   <div class="container">
     <h1>صلِّ على النبي ﷺ</h1>
-    <button id="salatBtn">اضغط هنا 👆</button>
-    <p id="counter">عدد الصلوات (عالمي): <span id="count">0</span></p>
+    
+    <!-- زر فيه العداد العالمي -->
+    <button id="salatBtn">0</button>
+    
+    <!-- عداد شخصي للصلاة -->
     <p id="userCounter">عدد صلواتك أنت فقط: <span id="userCount">0</span></p>
+    
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
+    
     <button class="share" onclick="share()">📤 شارك الأجر</button>
 
-    <!-- قسم الأذكار الإضافي -->
+    <!-- قسم الأذكار -->
     <div class="extra-section">
       <h2>اذكر ربك 🌿</h2>
 
       <div class="zekr-box">
-        <p class="zekr-text">لا حول ولا قوة إلا بالله</p>
-        <button onclick="incrementCounter('hawqalaCount', 'hawqalaDisplay')">اضغط</button>
-        <p>عدد مرات الحوقلة: <span id="hawqalaDisplay">0</span></p>
+        <p class="zekr-text">لا حول ولا قوة إلا بالله العلي العظيم</p>
+        <button onclick="incrementCounter('hawqalaCount', 'hawqalaDisplay')">
+          <span id="hawqalaDisplay">0</span>
+        </button>
+        <p>عدد مراتك: <span id="hawqalaUser">0</span></p>
       </div>
 
       <div class="zekr-box">
         <p class="zekr-text">أستغفر الله</p>
-        <button onclick="incrementCounter('estighfarCount', 'estighfarDisplay')">اضغط</button>
-        <p>عدد مرات الاستغفار: <span id="estighfarDisplay">0</span></p>
+        <button onclick="incrementCounter('estighfarCount', 'estighfarDisplay')">
+          <span id="estighfarDisplay">0</span>
+        </button>
+        <p>عدد مراتك: <span id="estighfarUser">0</span></p>
       </div>
     </div>
   </div>
