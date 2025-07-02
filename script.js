@@ -1,28 +1,29 @@
 // إعداد Firebase
 const firebaseConfig = {
-  apiKey: "مفتاح-API-هنا",
-  authDomain: "مشروعك.firebaseapp.com",
-  databaseURL: "https://مشروعك-default-rtdb.firebaseio.com",
-  projectId: "مشروعك",
-  storageBucket: "مشروعك.appspot.com",
-  messagingSenderId: "رقم-مرسل",
-  appId: "معرف-تطبيق"
+  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
+  authDomain: "salinow.firebaseapp.com",
+  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
+  projectId: "salinow",
+  storageBucket: "salinow.firebasestorage.app",
+  messagingSenderId: "199271794819",
+  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
+  measurementId: "G-23J4RKD3L9"
 };
-firebase.initializeApp(firebaseConfig);
 
+firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// المراجع لكل عداد عالمي في Firebase
+// مراجع العدادات العالمية
 const salatGlobalRef = db.ref('counts/salat');
 const hawqalaGlobalRef = db.ref('counts/hawqala');
 const estighfarGlobalRef = db.ref('counts/estighfar');
 
-// تحميل الأعداد الشخصية من localStorage
+// تحميل العدادات الشخصية من التخزين المحلي
 let salatPersonal = parseInt(localStorage.getItem('salatPersonal')) || 0;
 let hawqalaPersonal = parseInt(localStorage.getItem('hawqalaPersonal')) || 0;
 let estighfarPersonal = parseInt(localStorage.getItem('estighfarPersonal')) || 0;
 
-// العناصر
+// عناصر الأزرار
 const salatGlobalBtn = document.getElementById('salatGlobalBtn');
 const salatPersonalBtn = document.getElementById('salatPersonalBtn');
 
@@ -32,13 +33,13 @@ const hawqalaPersonalBtn = document.getElementById('hawqalaPersonalBtn');
 const estighfarGlobalBtn = document.getElementById('estighfarGlobalBtn');
 const estighfarPersonalBtn = document.getElementById('estighfarPersonalBtn');
 
-// تحديث الأزرار بالعدد الحالي
+// تحديث نصوص الأزرار
 function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
   globalBtn.textContent = `${globalCount} (عالمي)`;
   personalBtn.textContent = `${personalCount} (شخصي)`;
 }
 
-// استماع لتحديثات القاعدة لكل عداد عالمي
+// الاستماع لتحديثات العدادات العالمية من Firebase
 salatGlobalRef.on('value', snapshot => {
   const val = snapshot.val() || 0;
   updateButtons(salatGlobalBtn, salatPersonalBtn, val, salatPersonal);
@@ -54,7 +55,7 @@ estighfarGlobalRef.on('value', snapshot => {
   updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, val, estighfarPersonal);
 });
 
-// دوال زيادة العداد عند الضغط
+// زيادة العداد العالمي والشخصي عند الضغط
 
 salatGlobalBtn.addEventListener('click', () => {
   salatGlobalRef.transaction(current => (current || 0) + 1);
