@@ -1,53 +1,147 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
-  authDomain: "salinow.firebaseapp.com",
-  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
-  projectId: "salinow",
-  storageBucket: "salinow.firebasestorage.app",
-  messagingSenderId: "199271794819",
-  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
-  measurementId: "G-23J4RKD3L9"
-};
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const countRef = db.ref("globalCount");
+* {
+  box-sizing: border-box;
+}
 
-const btn = document.getElementById("salatBtn");
-const globalCountEl = document.getElementById("globalCount");
-const userCountEl = document.getElementById("userCount");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(135deg, #e0f2f1, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  direction: rtl;
+  color: #155724;
+  text-align: center;
+  padding: 1rem;
+}
 
-// تحميل العداد الشخصي من localStorage أو صفر إذا جديد
-let userCount = parseInt(localStorage.getItem("userSalatCount")) || 0;
-userCountEl.textContent = userCount;
+.container {
+  background: #ffffffcc;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(21, 87, 52, 0.15);
+  max-width: 400px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
 
-// تحديث العداد العالمي من Firebase
-countRef.on("value", (snapshot) => {
-  const count = snapshot.val() || 0;
-  globalCountEl.textContent = count;
-});
+.container:hover {
+  transform: translateY(-5px);
+}
 
-// عند الضغط على زر الصلاة
-btn.addEventListener("click", () => {
-  // تحديث العداد العالمي في Firebase
-  countRef.transaction((current) => {
-    return (current || 0) + 1;
-  });
+h1 {
+  color: #157347;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
 
-  // تحديث العداد الشخصي وحفظه في localStorage
-  userCount++;
-  localStorage.setItem("userSalatCount", userCount);
-  userCountEl.textContent = userCount;
-});
+button#salatBtn {
+  background-color: #28a745;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+  color: white;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+  user-select: none;
+}
 
-// زر المشاركة
-function share() {
-  const url = window.location.href;
-  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
-  if (navigator.share) {
-    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
-  } else {
-    navigator.clipboard.writeText(msg);
-    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
+button#salatBtn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+p#counter, p#userCounter {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e4620;
+}
+
+blockquote {
+  background: #eafbee;
+  border-right: 6px solid #28a745;
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  color: #155724;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: inset 3px 3px 5px rgba(40, 167, 69, 0.1);
+}
+
+button.share {
+  background-color: #0d6efd;
+  color: white;
+  margin-top: 2rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+  border: none;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+button.share:hover {
+  background-color: #0b5ed7;
+}
+
+/* قسم الأذكار */
+.extra-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid #ccc;
+}
+
+.zekr-box {
+  background: #f0fff4;
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.zekr-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #155724;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  button#salatBtn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  p#counter, p#userCounter {
+    font-size: 1.1rem;
+  }
+
+  button.share {
+    width: 100%;
   }
 }
