@@ -1,71 +1,50 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 2rem;
   font-family: 'Tajawal', sans-serif;
   background: #f8f9fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   direction: rtl;
+  text-align: center;
 }
 
 .container {
-  background: #ffffff;
+  max-width: 500px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 15px;
   padding: 2rem;
-  border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
 }
 
 h1 {
   color: #157347;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 button {
   background-color: #ffc107;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.4rem;
   border-radius: 12px;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: background-color 0.3s;
-  margin-top: 1rem;
-  width: 100%;
+  margin: 0.3rem;
+  width: 140px;
 }
 
 button:hover {
   background-color: #e0a800;
 }
 
-p {
-  font-size: 1.2rem;
-  color: #444;
-  margin-top: 0.3rem;
-  margin-bottom: 1rem;
-}
-
 blockquote {
   background: #eafbee;
   border-right: 5px solid #28a745;
-  margin-top: 2rem;
-  padding: 1rem;
-  border-radius: 10px;
   color: #155724;
   font-style: italic;
-}
-
-.share {
-  background-color: #0d6efd;
-  color: white;
-  margin-top: 1.5rem;
-}
-
-.share:hover {
-  background-color: #0b5ed7;
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 500px;
+  margin: 2rem auto 0 auto;
 }
