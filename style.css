@@ -36,7 +36,7 @@ body {
 h1 {
   color: #157347;
   margin-bottom: 1.5rem;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: 700;
 }
 
@@ -44,10 +44,12 @@ button {
   background-color: #28a745;
   border: none;
   padding: 1rem 2.5rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
   color: white;
   font-weight: 700;
-  transition: back
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  margin
