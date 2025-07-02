@@ -1,4 +1,4 @@
-// إعدادات Firebase الخاصة بك
+// إعدادات Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,41 +10,70 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
-// تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// اختيار عناصر الصفحة
+// عناصر الواجهة
 const salatBtn = document.getElementById("salatBtn");
-const userCount = document.getElementById("userCount");
+const userSalatCount = document.getElementById("userSalatCount");
 
-// جلب العداد الشخصي من localStorage
-let personalCount = parseInt(localStorage.getItem("userSalat") || "0");
-userCount.textContent = personalCount;
+const hawqalaBtn = document.getElementById("hawqalaBtn");
+const userHawqalaCount = document.getElementById("userHawqalaCount");
 
-// إنشاء مرجع لعداد الصلوات العالمي في Firebase
+const estighfarBtn = document.getElementById("estighfarBtn");
+const userEstighfarCount = document.getElementById("userEstighfarCount");
+
+// جلب القيم من localStorage أو تعيين صفر
+let personalSalat = parseInt(localStorage.getItem("userSalat") || "0");
+let personalHawqala = parseInt(localStorage.getItem("userHawqala") || "0");
+let personalEstighfar = parseInt(localStorage.getItem("userEstighfar") || "0");
+
+userSalatCount.textContent = personalSalat;
+userHawqalaCount.textContent = personalHawqala;
+userEstighfarCount.textContent = personalEstighfar;
+
+// مراجع Firebase
 const salatRef = db.ref("globalSalatCount");
+const hawqalaRef = db.ref("globalHawqalaCount");
+const estighfarRef = db.ref("globalEstighfarCount");
 
-// متابعة تغييرات العداد العالمي من Firebase مباشرة
-salatRef.on("value", (snapshot) => {
-  const count = snapshot.val() || 0;
-  salatBtn.textContent = count;
+// تحديث الأزرار بالعداد العالمي لحظياً
+salatRef.on("value", snapshot => {
+  salatBtn.textContent = snapshot.val() || 0;
+});
+hawqalaRef.on("value", snapshot => {
+  hawqalaBtn.textContent = snapshot.val() || 0;
+});
+estighfarRef.on("value", snapshot => {
+  estighfarBtn.textContent = snapshot.val() || 0;
 });
 
-// عند الضغط على الزر
+// دوال الزيادة عند الضغط مع تحديث العدادات الشخصية والعالمية
 salatBtn.addEventListener("click", () => {
-  // زيادة العداد الشخصي وحفظه
-  personalCount++;
-  localStorage.setItem("userSalat", personalCount);
-  userCount.textContent = personalCount;
+  personalSalat++;
+  localStorage.setItem("userSalat", personalSalat);
+  userSalatCount.textContent = personalSalat;
 
-  // زيادة العداد العالمي داخل Firebase باستخدام transaction لضمان الدقة
-  salatRef.transaction((currentValue) => {
-    return (currentValue || 0) + 1;
-  });
+  salatRef.transaction(current => (current || 0) + 1);
 });
 
-// وظيفة المشاركة (اختياري)
+hawqalaBtn.addEventListener("click", () => {
+  personalHawqala++;
+  localStorage.setItem("userHawqala", personalHawqala);
+  userHawqalaCount.textContent = personalHawqala;
+
+  hawqalaRef.transaction(current => (current || 0) + 1);
+});
+
+estighfarBtn.addEventListener("click", () => {
+  personalEstighfar++;
+  localStorage.setItem("userEstighfar", personalEstighfar);
+  userEstighfarCount.textContent = personalEstighfar;
+
+  estighfarRef.transaction(current => (current || 0) + 1);
+});
+
+// مشاركة الموقع
 function share() {
   const url = window.location.href;
   const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
