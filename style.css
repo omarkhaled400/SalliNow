@@ -1,4 +1,3 @@
-/* تنسيق عام للصفحة */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f9f9f9;
@@ -20,7 +19,6 @@ h1 {
   color: #333;
 }
 
-/* زرار كلمة "عالمي" */
 #globalButton {
   background-color: transparent;
   border: none;
@@ -38,7 +36,6 @@ h1 {
   outline: none;
 }
 
-/* المكان اللي هتظهر فيه كلمة "عالمي" */
 #displayArea {
   margin-top: 40px;
   font-size: 36px;
