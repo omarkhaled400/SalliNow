@@ -22,7 +22,7 @@ const btnSalatGlobal = document.getElementById('salatGlobalBtn');
 const personalSalatCountElem = document.getElementById('salatPersonalCount');
 
 const btnHawqalaGlobal = document.getElementById('hawqalaGlobalBtn');
-const personalHawqalaCountElem = document.getElementById('hawqalaHawqalaCount');
+const personalHawqalaCountElem = document.getElementById('hawqalaPersonalCount');
 
 const btnIstighfarGlobal = document.getElementById('istighfarGlobalBtn');
 const personalIstighfarCountElem = document.getElementById('istighfarPersonalCount');
