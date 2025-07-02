@@ -1,92 +1,94 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
-  authDomain: "salinow.firebaseapp.com",
-  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
-  projectId: "salinow",
-  storageBucket: "salinow.firebasestorage.app",
-  messagingSenderId: "199271794819",
-  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
-  measurementId: "G-23J4RKD3L9"
+// مفروض firebase متفعّل مسبقًا في مشروعك
+
+// المراجع لعناصر الأزرار والعدادات الشخصية
+const btns = {
+  salatGlobal: document.getElementById('salatGlobalBtn'),
+  hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
+  istighfarGlobal: document.getElementById('istighfarGlobalBtn'),
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-const refs = {
-  salat: db.ref('counts/salat'),
-  hawqala: db.ref('counts/hawqala'),
-  estighfar: db.ref('counts/estighfar')
+const countsPersonal = {
+  salat: document.getElementById('salatPersonalCount'),
+  hawqala: document.getElementById('hawqalaPersonalCount'),
+  istighfar: document.getElementById('istighfarPersonalCount'),
 };
 
+// جلب القيم الشخصية من localStorage أو تهيئتها بالصفر
 let personal = {
   salat: parseInt(localStorage.getItem('salatPersonal')) || 0,
   hawqala: parseInt(localStorage.getItem('hawqalaPersonal')) || 0,
-  estighfar: parseInt(localStorage.getItem('estighfarPersonal')) || 0
+  istighfar: parseInt(localStorage.getItem('istighfarPersonal')) || 0,
 };
 
-const btns = {
-  salatGlobal: document.getElementById('salatGlobalBtn'),
-  salatPersonal: document.getElementById('salatPersonalBtn'),
-  hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
-  hawqalaPersonal: document.getElementById('hawqalaPersonalBtn'),
-  estighfarGlobal: document.getElementById('estighfarGlobalBtn'),
-  estighfarPersonal: document.getElementById('estighfarPersonalBtn')
-};
-
-function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
-  globalBtn.textContent = `${globalCount} (عالمي)`;
-  personalBtn.textContent = `${personalCount} (شخصي)`;
+// تحديث عرض الأعداد الشخصية
+function updatePersonalDisplays() {
+  countsPersonal.salat.textContent = `عدد صلواتك أنت فقط: ${personal.salat}`;
+  countsPersonal.hawqala.textContent = `عدد الحوقلة الخاصة بك: ${personal.hawqala}`;
+  countsPersonal.istighfar.textContent = `عدد الاستغفار الخاص بك: ${personal.istighfar}`;
 }
 
-// عرض القيم الأولية
-updateButtons(btns.salatGlobal, btns.salatPersonal, 0, personal.salat);
-updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, 0, personal.hawqala);
-updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, 0, personal.estighfar);
+// تحديث عرض زر العدّاد العالمي (النص مع العدد والكلمة "عالمي" فقط مرة واحدة)
+function updateGlobalButton(button, count) {
+  button.textContent = `${count} (عالمي)`;
+}
 
-// الاستماع لتحديثات العدادات العالمية من Firebase
-refs.salat.on('value', snap => {
-  updateButtons(btns.salatGlobal, btns.salatPersonal, snap.val() || 0, personal.salat);
-});
-refs.hawqala.on('value', snap => {
-  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, snap.val() || 0, personal.hawqala);
-});
-refs.estighfar.on('value', snap => {
-  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, snap.val() || 0, personal.estighfar);
+// --- كود الربط مع Firebase ---
+
+// مثال: مراجع لقاعدة البيانات (غيرها حسب مشروعك)
+const database = firebase.database();
+
+const refs = {
+  salat: database.ref('counts/salat'),
+  hawqala: database.ref('counts/hawqala'),
+  istighfar: database.ref('counts/istighfar'),
+};
+
+// تحديث الزر العالمي عند تغير البيانات في قاعدة Firebase
+refs.salat.on('value', snapshot => {
+  updateGlobalButton(btns.salatGlobal, snapshot.val() || 0);
 });
 
-// التعامل مع ضغطات الأزرار وتحديث القيم
+refs.hawqala.on('value', snapshot => {
+  updateGlobalButton(btns.hawqalaGlobal, snapshot.val() || 0);
+});
+
+refs.istighfar.on('value', snapshot => {
+  updateGlobalButton(btns.istighfarGlobal, snapshot.val() || 0);
+});
+
+// عند الضغط على زر عالمي، زيادة القيمة في Firebase وعدادك الشخصي
 btns.salatGlobal.addEventListener('click', () => {
   refs.salat.transaction(current => (current || 0) + 1);
   personal.salat++;
   localStorage.setItem('salatPersonal', personal.salat);
-  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
-});
-btns.salatPersonal.addEventListener('click', () => {
-  personal.salat++;
-  localStorage.setItem('salatPersonal', personal.salat);
-  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
+  updatePersonalDisplays();
 });
 
 btns.hawqalaGlobal.addEventListener('click', () => {
   refs.hawqala.transaction(current => (current || 0) + 1);
   personal.hawqala++;
   localStorage.setItem('hawqalaPersonal', personal.hawqala);
-  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
-});
-btns.hawqalaPersonal.addEventListener('click', () => {
-  personal.hawqala++;
-  localStorage.setItem('hawqalaPersonal', personal.hawqala);
-  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
+  updatePersonalDisplays();
 });
 
-btns.estighfarGlobal.addEventListener('click', () => {
-  refs.estighfar.transaction(current => (current || 0) + 1);
-  personal.estighfar++;
-  localStorage.setItem('estighfarPersonal', personal.estighfar);
-  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
+btns.istighfarGlobal.addEventListener('click', () => {
+  refs.istighfar.transaction(current => (current || 0) + 1);
+  personal.istighfar++;
+  localStorage.setItem('istighfarPersonal', personal.istighfar);
+  updatePersonalDisplays();
 });
-btns.estighfarPersonal.addEventListener('click', () => {
-  personal.estighfar++;
-  localStorage.setItem('estighfarPersonal', personal.estighfar);
-  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
-});
+
+// دالة المشاركة
+function share() {
+  const url = window.location.href;
+  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
+  if (navigator.share) {
+    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
+  } else {
+    navigator.clipboard.writeText(msg);
+    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
+  }
+}
+
+// تحديث العرض عند بداية تحميل الصفحة
+updatePersonalDisplays();
