@@ -6,7 +6,6 @@
   <title>صلِّ على النبي ﷺ</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
-
   <!-- Firebase CDN -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -16,7 +15,13 @@
     <h1>صلِّ على النبي ﷺ</h1>
 
     <button id="salatBtn">0</button>
-    <p>عدد صلواتك أنت فقط: <span id="userCount">0</span></p>
+    <p>عدد صلواتك أنت فقط: <span id="userSalatCount">0</span></p>
+
+    <button id="hawqalaBtn">لا حول ولا قوة إلا بالله العلي العظيم</button>
+    <p>عدد الحقولات التي قلتها أنت فقط: <span id="userHawqalaCount">0</span></p>
+
+    <button id="estighfarBtn">أستغفر الله العظيم</button>
+    <p>عدد الاستغفارات التي قلتها أنت فقط: <span id="userEstighfarCount">0</span></p>
 
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
     <button class="share" onclick="share()">📤 شارك الأجر</button>
