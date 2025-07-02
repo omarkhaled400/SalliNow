@@ -16,8 +16,6 @@ const dbRef = firebase.database().ref('counts/salat');
 
 const btnGlobal = document.getElementById('salatGlobalBtn');
 const personalCountElem = document.getElementById('salatPersonalCount');
-const shareBtn = document.getElementById('shareBtn');
-const contactBtn = document.getElementById('contactBtn');
 
 let personalCount = parseInt(localStorage.getItem('salatPersonal')) || 0;
 
@@ -29,12 +27,13 @@ function updateGlobalButton(count) {
   btnGlobal.textContent = `${count} (عالمي)`;
 }
 
-// تحديث العداد العالمي عند تغير البيانات في قاعدة البيانات
+// تحديث العدّاد العالمي عند أي تغيير في القاعدة
 dbRef.on('value', snapshot => {
   const count = snapshot.val() || 0;
   updateGlobalButton(count);
 });
 
+// عند الضغط على زر العداد العالمي
 btnGlobal.addEventListener('click', () => {
   dbRef.transaction(current => (current || 0) + 1)
     .then(() => {
@@ -46,20 +45,3 @@ btnGlobal.addEventListener('click', () => {
 });
 
 updatePersonalCount();
-
-shareBtn.addEventListener('click', () => {
-  const url = window.location.href;
-  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
-  if (navigator.share) {
-    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
-  } else {
-    navigator.clipboard.writeText(msg);
-    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
-  }
-});
-
-contactBtn.addEventListener('click', () => {
-  const phone = '201021069619'; // كود مصر بدون 0
-  const url = `https://wa.me/${phone}`;
-  window.open(url, '_blank');
-});
