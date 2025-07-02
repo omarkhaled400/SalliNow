@@ -30,22 +30,24 @@ button {
   background-color: #ffc107;
   border: none;
   padding: 1rem 2rem;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: background-color 0.3s;
   margin-top: 1rem;
+  width: 100%;
 }
 
 button:hover {
   background-color: #e0a800;
 }
 
-#userCount {
-  margin-top: 1rem;
-  font-size: 1.4rem;
+p {
+  font-size: 1.2rem;
   color: #444;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
 }
 
 blockquote {
