@@ -14,34 +14,34 @@ const db = firebase.database();
 const countRef = db.ref("globalCount");
 
 const btn = document.getElementById("salatBtn");
-const countEl = document.getElementById("count");
+const globalCountEl = document.getElementById("globalCount");
+const userCountEl = document.getElementById("userCount");
 
-// عرض العدد عند تحميل الصفحة
+// تحميل العداد الشخصي من localStorage أو صفر إذا جديد
+let userCount = parseInt(localStorage.getItem("userSalatCount")) || 0;
+userCountEl.textContent = userCount;
+
+// تحديث العداد العالمي من Firebase
 countRef.on("value", (snapshot) => {
   const count = snapshot.val() || 0;
-  console.log("Current count from DB:", count);
-  countEl.textContent = count;
+  globalCountEl.textContent = count;
 });
 
-// عند الضغط على الزر
+// عند الضغط على زر الصلاة
 btn.addEventListener("click", () => {
-  console.log("Button clicked");
-  countRef.transaction(current => {
-    console.log("Transaction current value:", current);
+  // تحديث العداد العالمي في Firebase
+  countRef.transaction((current) => {
     return (current || 0) + 1;
-  }, (error, committed, snapshot) => {
-    if (error) {
-      console.error("Transaction failed:", error);
-    } else if (!committed) {
-      console.log("Transaction not committed");
-    } else {
-      console.log("Transaction committed, new count:", snapshot.val());
-      countEl.textContent = snapshot.val();
-    }
   });
+
+  // تحديث العداد الشخصي وحفظه في localStorage
+  userCount++;
+  localStorage.setItem("userSalatCount", userCount);
+  userCountEl.textContent = userCount;
 });
 
-window.share = function () {
+// زر المشاركة
+function share() {
   const url = window.location.href;
   const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
   if (navigator.share) {
@@ -50,4 +50,4 @@ window.share = function () {
     navigator.clipboard.writeText(msg);
     alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
   }
-};
+}
