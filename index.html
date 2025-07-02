@@ -1,107 +1,32 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>صلِّ على النبي وذكر الله</title>
-<style>
-  body {
-    font-family: 'Tajawal', sans-serif;
-    direction: rtl;
-    text-align: center;
-    margin: 2rem;
-    background: #f8f9fa;
-  }
-  h1 {
-    color: #157347;
-  }
-  button {
-    padding: 1rem 2rem;
-    font-size: 2rem;
-    background-color: #ffc107;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 1rem;
-    width: 150px;
-  }
-  p {
-    font-size: 1.3rem;
-    margin: 0.3rem 0 1.5rem 0;
-    color: #444;
-  }
-  blockquote {
-    background: #eafbee;
-    border-right: 5px solid #28a745;
-    padding: 1rem;
-    border-radius: 10px;
-    font-style: italic;
-    color: #155724;
-    max-width: 500px;
-    margin: 2rem auto 0 auto;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>صلِّ على النبي ﷺ</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
+  <div class="container">
+    <h1>صلِّ على النبي ﷺ</h1>
+    <button id="salatGlobalBtn">0 (عالمي)</button>
+    <button id="salatPersonalBtn">0 (شخصي)</button>
 
-<h1>صلِّ على النبي ﷺ</h1>
-<button id="salatBtn">0</button>
-<p>عدد صلواتك أنت فقط: <span id="salatCount">0</span></p>
+    <h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
+    <button id="hawqalaGlobalBtn">0 (عالمي)</button>
+    <button id="hawqalaPersonalBtn">0 (شخصي)</button>
 
-<h1>لا حول ولا قوة إلا بالله العلي العظيم</h1>
-<button id="hawqalaBtn">0</button>
-<p>عدد مرات قولك الحوقلة: <span id="hawqalaCount">0</span></p>
+    <h1>أستغفر الله العظيم</h1>
+    <button id="estighfarGlobalBtn">0 (عالمي)</button>
+    <button id="estighfarPersonalBtn">0 (شخصي)</button>
 
-<h1>أستغفر الله العظيم</h1>
-<button id="estighfarBtn">0</button>
-<p>عدد مرات قولك الاستغفار: <span id="estighfarCount">0</span></p>
+    <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
+  </div>
 
-<blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
-
-<script>
-  // تحميل الأعداد من localStorage أو صفر
-  let salatCount = parseInt(localStorage.getItem('salatCount')) || 0;
-  let hawqalaCount = parseInt(localStorage.getItem('hawqalaCount')) || 0;
-  let estighfarCount = parseInt(localStorage.getItem('estighfarCount')) || 0;
-
-  // تحديث الأزرار والنصوص
-  const salatBtn = document.getElementById('salatBtn');
-  const hawqalaBtn = document.getElementById('hawqalaBtn');
-  const estighfarBtn = document.getElementById('estighfarBtn');
-
-  const salatCountSpan = document.getElementById('salatCount');
-  const hawqalaCountSpan = document.getElementById('hawqalaCount');
-  const estighfarCountSpan = document.getElementById('estighfarCount');
-
-  function updateUI() {
-    salatBtn.textContent = salatCount;
-    hawqalaBtn.textContent = hawqalaCount;
-    estighfarBtn.textContent = estighfarCount;
-
-    salatCountSpan.textContent = salatCount;
-    hawqalaCountSpan.textContent = hawqalaCount;
-    estighfarCountSpan.textContent = estighfarCount;
-  }
-
-  updateUI();
-
-  salatBtn.addEventListener('click', () => {
-    salatCount++;
-    localStorage.setItem('salatCount', salatCount);
-    updateUI();
-  });
-
-  hawqalaBtn.addEventListener('click', () => {
-    hawqalaCount++;
-    localStorage.setItem('hawqalaCount', hawqalaCount);
-    updateUI();
-  });
-
-  estighfarBtn.addEventListener('click', () => {
-    estighfarCount++;
-    localStorage.setItem('estighfarCount', estighfarCount);
-    updateUI();
-  });
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
