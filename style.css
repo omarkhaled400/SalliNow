@@ -7,26 +7,23 @@ body {
   text-align: center;
   color: #1b3a2d;
 }
-
 .container {
-  max-width: 95vw; /* تعديل هنا */
-  margin: 0 auto;
-  background: #ffffff;
+  max-width: 450px;
+  margin: auto;
+  background: #fff;
   border-radius: 20px;
-  padding: 1.5rem 1rem; /* تعديل هنا */
-  box-sizing: border-box; /* إضافة مهمة */
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
   box-shadow: 0 12px 24px rgba(27, 58, 45, 0.15);
 }
-
 h1 {
   color: #2d6a4f;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   font-weight: 700;
-  font-size: 1.5rem; /* تعديل هنا */
+  font-size: 1.6rem;
   letter-spacing: 0.03em;
-  word-break: break-word; /* إضافة مهمة */
+  word-break: break-word;
 }
-
 .button-group {
   display: flex;
   justify-content: center;
@@ -34,13 +31,12 @@ h1 {
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
-
 button {
   background-color: #52b788;
   border: none;
   border-radius: 14px;
   padding: 1rem 1.8rem;
-  font-size: 1.4rem; /* تعديل هنا */
+  font-size: 1.3rem;
   color: white;
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
@@ -51,17 +47,14 @@ button {
   overflow-wrap: break-word;
   font-weight: 600;
 }
-
 button:hover {
   background-color: #40916c;
   transform: translateY(-3px);
 }
-
 button:active {
   transform: translateY(1px);
   box-shadow: 0 3px 8px rgba(82, 183, 136, 0.7);
 }
-
 blockquote {
   background: #d8f3dc;
   border-right: 6px solid #2d6a4f;
@@ -70,7 +63,23 @@ blockquote {
   border-radius: 12px;
   padding: 1.3rem 1.5rem;
   max-width: 520px;
-  margin: 2rem auto 0 auto;
+  margin: 2rem auto 1.5rem auto;
   font-size: 1.1rem;
   line-height: 1.6;
+}
+.contact-btn {
+  background-color: #2d6a4f;
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(27, 58, 45, 0.7);
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+.contact-btn:hover {
+  background-color: #1b3a2d;
 }
