@@ -4,32 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>صلِّ على النبي ﷺ</title>
-  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
+
     <h1>صلِّ على النبي ﷺ</h1>
 
     <button id="salatGlobalBtn">0 (عالمي)</button>
     <p id="salatPersonalCount">عدد صلواتك أنت فقط: 0</p>
 
-    <h2>لا حول ولا قوة إلا بالله العلي العظيم</h2>
     <button id="hawqalaGlobalBtn">0 (عالمي)</button>
     <p id="hawqalaPersonalCount">عدد حوقلتك أنت فقط: 0</p>
 
-    <h2>أستغفر الله العظيم</h2>
     <button id="istighfarGlobalBtn">0 (عالمي)</button>
     <p id="istighfarPersonalCount">عدد استغفاراتك أنت فقط: 0</p>
 
     <blockquote>قال ﷺ: "من صلى عليّ صلاة، صلى الله عليه بها عشرًا" – رواه مسلم</blockquote>
 
-    <button class="share" id="shareBtn">📤 شارك الأجر</button>
+    <div class="actions">
+      <button id="shareBtn">📤 شارك الأجر</button>
+      <button id="contactBtn">📱 تواصل مع الصانع</button>
+    </div>
+
   </div>
 
-  <button class="contact-btn" id="contactBtn">تواصل مع صانع الموقع</button>
-
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
