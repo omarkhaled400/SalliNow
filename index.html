@@ -2,35 +2,20 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>مثال كلمة عالمي</title>
-  <style>
-    #globalButton {
-      cursor: pointer;
-      color: blue;
-      text-decoration: underline;
-      user-select: none;
-    }
-    #displayArea {
-      margin-top: 20px;
-      font-size: 24px;
-      color: #333;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تجربة كلمة عالمي</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="globalButton">عالمي</div>
-  <div id="displayArea"></div>
+  <main>
+    <h1>مثال كلمة عالمي</h1>
 
-  <script>
-    const displayArea = document.getElementById("displayArea");
-    const globalButton = document.getElementById("globalButton");
+    <button id="globalButton" aria-label="زر كلمة عالمي">عالمي</button>
 
-    globalButton.addEventListener("click", () => {
-      // استبدل النص ولا تضيفه عشان تمنع التكرار
-      displayArea.innerHTML = "عالمي";
-    });
-  </script>
+    <section id="displayArea" aria-live="polite" role="region"></section>
+  </main>
 
+  <script src="script.js"></script>
 </body>
 </html>
