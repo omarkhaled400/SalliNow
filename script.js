@@ -1,4 +1,4 @@
-// Firebase config
+// بيانات Firebase بتاعتك
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,27 +10,25 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
-// Load Firebase modules (بدون ES Modules)
+// تحميل Firebase (نسخة compat عشان تشتغل على HTML عادي)
 import('https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js').then(() => {
   import('https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js').then(() => {
 
-    // Initialize Firebase
+    // تهيئة Firebase
     firebase.initializeApp(firebaseConfig);
-
     const db = firebase.database();
     const countRef = db.ref("globalCount");
 
-    // زر الصلوات
     const btn = document.getElementById("salatBtn");
     const countEl = document.getElementById("count");
 
-    // عرض القيمة أول ما الصفحة تفتح
+    // عرض العدد أول ما الصفحة تفتح
     countRef.on("value", (snapshot) => {
       const count = snapshot.val() || 0;
       countEl.textContent = count;
     });
 
-    // عند الضغط على الزر
+    // لما المستخدم يضغط الزر
     btn.addEventListener("click", () => {
       countRef.transaction((current) => {
         return (current || 0) + 1;
