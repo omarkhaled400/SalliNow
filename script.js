@@ -1,4 +1,3 @@
-// 1. إعداد Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
   authDomain: "salinow.firebaseapp.com",
@@ -10,98 +9,84 @@ const firebaseConfig = {
   measurementId: "G-23J4RKD3L9"
 };
 
-// تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const db = firebase.database();
 
-// 2. عناصر الصفحة
-const btns = {
-  salatGlobal: document.getElementById('salatGlobalBtn'),
-  hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
-  istighfarGlobal: document.getElementById('istighfarGlobalBtn'),
+const refs = {
+  salat: db.ref('counts/salat'),
+  hawqala: db.ref('counts/hawqala'),
+  estighfar: db.ref('counts/estighfar')
 };
 
-const countsPersonal = {
-  salat: document.getElementById('salatPersonalCount'),
-  hawqala: document.getElementById('hawqalaPersonalCount'),
-  istighfar: document.getElementById('istighfarPersonalCount'),
-};
-
-// 3. جلب البيانات الشخصية من localStorage أو تهيئتها
 let personal = {
   salat: parseInt(localStorage.getItem('salatPersonal')) || 0,
   hawqala: parseInt(localStorage.getItem('hawqalaPersonal')) || 0,
-  istighfar: parseInt(localStorage.getItem('istighfarPersonal')) || 0,
+  estighfar: parseInt(localStorage.getItem('estighfarPersonal')) || 0
 };
 
-// 4. تحديث العرض الشخصي
-function updatePersonalDisplays() {
-  countsPersonal.salat.textContent = `عدد صلواتك أنت فقط: ${personal.salat}`;
-  countsPersonal.hawqala.textContent = `عدد الحوقلة الخاصة بك: ${personal.hawqala}`;
-  countsPersonal.istighfar.textContent = `عدد الاستغفار الخاص بك: ${personal.istighfar}`;
-}
-
-// 5. تحديث نص زر العدّاد العالمي (عدد + كلمة "عالمي")
-function updateGlobalButton(button, count) {
-  button.textContent = `${count} (عالمي)`;
-}
-
-// 6. مراجع Firebase لعدادات كل نوع
-const refs = {
-  salat: database.ref('counts/salat'),
-  hawqala: database.ref('counts/hawqala'),
-  istighfar: database.ref('counts/istighfar'),
+const btns = {
+  salatGlobal: document.getElementById('salatGlobalBtn'),
+  salatPersonal: document.getElementById('salatPersonalBtn'),
+  hawqalaGlobal: document.getElementById('hawqalaGlobalBtn'),
+  hawqalaPersonal: document.getElementById('hawqalaPersonalBtn'),
+  estighfarGlobal: document.getElementById('estighfarGlobalBtn'),
+  estighfarPersonal: document.getElementById('estighfarPersonalBtn')
 };
 
-// 7. الاستماع لتحديث القيم من Firebase وتحديث الأزرار
+function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
+  globalBtn.textContent = `${globalCount} (عالمي)`;
+  personalBtn.textContent = `${personalCount} (شخصي)`;
+}
+
+// عرض القيم الأولية
+updateButtons(btns.salatGlobal, btns.salatPersonal, 0, personal.salat);
+updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, 0, personal.hawqala);
+updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, 0, personal.estighfar);
+
+// الاستماع لتحديثات العدادات العالمية من Firebase
 refs.salat.on('value', snap => {
-  updateGlobalButton(btns.salatGlobal, snap.val() || 0);
+  updateButtons(btns.salatGlobal, btns.salatPersonal, snap.val() || 0, personal.salat);
 });
 refs.hawqala.on('value', snap => {
-  updateGlobalButton(btns.hawqalaGlobal, snap.val() || 0);
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, snap.val() || 0, personal.hawqala);
 });
-refs.istighfar.on('value', snap => {
-  updateGlobalButton(btns.istighfarGlobal, snap.val() || 0);
+refs.estighfar.on('value', snap => {
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, snap.val() || 0, personal.estighfar);
 });
 
-// 8. عند الضغط على زر عالمي: تحديث القاعدة والعداد الشخصي
+// التعامل مع ضغطات الأزرار وتحديث القيم
 btns.salatGlobal.addEventListener('click', () => {
   refs.salat.transaction(current => (current || 0) + 1);
   personal.salat++;
   localStorage.setItem('salatPersonal', personal.salat);
-  updatePersonalDisplays();
+  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
 });
+btns.salatPersonal.addEventListener('click', () => {
+  personal.salat++;
+  localStorage.setItem('salatPersonal', personal.salat);
+  updateButtons(btns.salatGlobal, btns.salatPersonal, btns.salatGlobal.textContent, personal.salat);
+});
+
 btns.hawqalaGlobal.addEventListener('click', () => {
   refs.hawqala.transaction(current => (current || 0) + 1);
   personal.hawqala++;
   localStorage.setItem('hawqalaPersonal', personal.hawqala);
-  updatePersonalDisplays();
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
 });
-btns.istighfarGlobal.addEventListener('click', () => {
-  refs.istighfar.transaction(current => (current || 0) + 1);
-  personal.istighfar++;
-  localStorage.setItem('istighfarPersonal', personal.istighfar);
-  updatePersonalDisplays();
+btns.hawqalaPersonal.addEventListener('click', () => {
+  personal.hawqala++;
+  localStorage.setItem('hawqalaPersonal', personal.hawqala);
+  updateButtons(btns.hawqalaGlobal, btns.hawqalaPersonal, btns.hawqalaGlobal.textContent, personal.hawqala);
 });
 
-// 9. دالة المشاركة
-function share() {
-  const url = window.location.href;
-  const msg = `صلِّ على النبي ﷺ وشارك الأجر: ${url}`;
-  if (navigator.share) {
-    navigator.share({ title: "صلِّ على النبي ﷺ", text: msg, url });
-  } else {
-    navigator.clipboard.writeText(msg);
-    alert("تم نسخ الرابط ✅ شارك الأجر مع غيرك 🤍");
-  }
-}
-
-// 10. دالة التواصل على الواتساب
-function contact() {
-  const phone = '01021069619';
-  const url = `https://wa.me/${phone}`;
-  window.open(url, '_blank');
-}
-
-// 11. تهيئة العرض عند تحميل الصفحة
-updatePersonalDisplays();
+btns.estighfarGlobal.addEventListener('click', () => {
+  refs.estighfar.transaction(current => (current || 0) + 1);
+  personal.estighfar++;
+  localStorage.setItem('estighfarPersonal', personal.estighfar);
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
+});
+btns.estighfarPersonal.addEventListener('click', () => {
+  personal.estighfar++;
+  localStorage.setItem('estighfarPersonal', personal.estighfar);
+  updateButtons(btns.estighfarGlobal, btns.estighfarPersonal, btns.estighfarGlobal.textContent, personal.estighfar);
+});
