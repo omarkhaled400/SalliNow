@@ -1,50 +1,78 @@
+/* الخطوط الأساسية */
 body {
   margin: 0;
   padding: 2rem;
   font-family: 'Tajawal', sans-serif;
-  background: #f8f9fa;
+  background: #e9f5ee; /* أخضر فاتح جدا */
   direction: rtl;
   text-align: center;
+  color: #1b3a2d; /* أخضر غامق للنص */
 }
 
+/* صندوق المحتوى */
 .container {
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
-  background: #fff;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 12px 24px rgba(27, 58, 45, 0.15);
 }
 
+/* عناوين الأقسام */
 h1 {
-  color: #157347;
-  margin-bottom: 0.5rem;
+  color: #2d6a4f;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.03em;
 }
 
+/* مجموعة الأزرار */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* أزرار العداد */
 button {
-  background-color: #ffc107;
+  background-color: #52b788;
   border: none;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  font-size: 1.5rem;
+  border-radius: 14px;
+  padding: 1rem 1.8rem;
+  font-size: 1.6rem;
+  color: white;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: background-color 0.3s;
-  margin: 0.3rem;
-  width: 140px;
+  box-shadow: 0 6px 14px rgba(82, 183, 136, 0.5);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 130px;
+  font-weight: 600;
 }
 
+/* تأثير عند التمرير على الزر */
 button:hover {
-  background-color: #e0a800;
+  background-color: #40916c;
+  transform: translateY(-3px);
 }
 
+/* تأثير عند الضغط */
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(82, 183, 136, 0.7);
+}
+
+/* الاقتباس */
 blockquote {
-  background: #eafbee;
-  border-right: 5px solid #28a745;
-  color: #155724;
+  background: #d8f3dc;
+  border-right: 6px solid #2d6a4f;
+  color: #14532d;
   font-style: italic;
-  border-radius: 10px;
-  padding: 1rem;
-  max-width: 500px;
+  border-radius: 12px;
+  padding: 1.3rem 1.5rem;
+  max-width: 520px;
   margin: 2rem auto 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
