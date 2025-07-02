@@ -1,84 +1,48 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBLrWhEzLiH2zO8pN-fm7SAe0Z6kvU8ceY",
-  authDomain: "salinow.firebaseapp.com",
-  databaseURL: "https://salinow-default-rtdb.firebaseio.com",
-  projectId: "salinow",
-  storageBucket: "salinow.firebasestorage.app",
-  messagingSenderId: "199271794819",
-  appId: "1:199271794819:web:00cc0805877129b4ae73b6",
-  measurementId: "G-23J4RKD3L9"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-const salatGlobalRef = db.ref('counts/salat');
-const hawqalaGlobalRef = db.ref('counts/hawqala');
-const estighfarGlobalRef = db.ref('counts/estighfar');
-
-let salatPersonal = parseInt(localStorage.getItem('salatPersonal')) || 0;
-let hawqalaPersonal = parseInt(localStorage.getItem('hawqalaPersonal')) || 0;
-let estighfarPersonal = parseInt(localStorage.getItem('estighfarPersonal')) || 0;
-
-const salatGlobalBtn = document.getElementById('salatGlobalBtn');
-const salatPersonalBtn = document.getElementById('salatPersonalBtn');
-const hawqalaGlobalBtn = document.getElementById('hawqalaGlobalBtn');
-const hawqalaPersonalBtn = document.getElementById('hawqalaPersonalBtn');
-const estighfarGlobalBtn = document.getElementById('estighfarGlobalBtn');
-const estighfarPersonalBtn = document.getElementById('estighfarPersonalBtn');
-
-function updateButtons(globalBtn, personalBtn, globalCount, personalCount) {
-  globalBtn.textContent = `${globalCount} (عالمي)`;
-  personalBtn.textContent = `${personalCount} (شخصي)`;
+/* تنسيق عام للصفحة */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+  margin: 0;
+  padding: 20px;
+  direction: rtl;
 }
 
-updateButtons(salatGlobalBtn, salatPersonalBtn, 0, salatPersonal);
-updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, 0, hawqalaPersonal);
-updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, 0, estighfarPersonal);
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
 
-salatGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(salatGlobalBtn, salatPersonalBtn, val, salatPersonal);
-});
-hawqalaGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, val, hawqalaPersonal);
-});
-estighfarGlobalRef.on('value', snapshot => {
-  const val = snapshot.val() || 0;
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, val, estighfarPersonal);
-});
+h1 {
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #333;
+}
 
-salatGlobalBtn.addEventListener('click', () => {
-  salatGlobalRef.transaction(current => (current || 0) + 1);
-  salatPersonal++;
-  localStorage.setItem('salatPersonal', salatPersonal);
-  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
-});
-salatPersonalBtn.addEventListener('click', () => {
-  salatPersonal++;
-  localStorage.setItem('salatPersonal', salatPersonal);
-  updateButtons(salatGlobalBtn, salatPersonalBtn, salatGlobalBtn.textContent, salatPersonal);
-});
-hawqalaGlobalBtn.addEventListener('click', () => {
-  hawqalaGlobalRef.transaction(current => (current || 0) + 1);
-  hawqalaPersonal++;
-  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
-});
-hawqalaPersonalBtn.addEventListener('click', () => {
-  hawqalaPersonal++;
-  localStorage.setItem('hawqalaPersonal', hawqalaPersonal);
-  updateButtons(hawqalaGlobalBtn, hawqalaPersonalBtn, hawqalaGlobalBtn.textContent, hawqalaPersonal);
-});
-estighfarGlobalBtn.addEventListener('click', () => {
-  estighfarGlobalRef.transaction(current => (current || 0) + 1);
-  estighfarPersonal++;
-  localStorage.setItem('estighfarPersonal', estighfarPersonal);
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
-});
-estighfarPersonalBtn.addEventListener('click', () => {
-  estighfarPersonal++;
-  localStorage.setItem('estighfarPersonal', estighfarPersonal);
-  updateButtons(estighfarGlobalBtn, estighfarPersonalBtn, estighfarGlobalBtn.textContent, estighfarPersonal);
-});
+/* زرار كلمة "عالمي" */
+#globalButton {
+  background-color: transparent;
+  border: none;
+  color: #1a73e8;
+  font-size: 28px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 10px 20px;
+  transition: color 0.3s ease;
+}
+
+#globalButton:hover,
+#globalButton:focus {
+  color: #0046b8;
+  outline: none;
+}
+
+/* المكان اللي هتظهر فيه كلمة "عالمي" */
+#displayArea {
+  margin-top: 40px;
+  font-size: 36px;
+  color: #0a0a0a;
+  min-height: 50px;
+  font-weight: 600;
+}
